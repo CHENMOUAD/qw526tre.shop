@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>いちよし証券グループ - 株式市場学習プログラム</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a2540;
+            --secondary-color: #1d4ed8;
+            --accent-color: #f59e0b;
+            --button-color: #e67e22;
+            --button-hover: #d35400;
+            --button-text: #ffffff;
+            --background-color: #f8fafc;
+            --text-color: #334155;
+            --light-text: #f1f5f9;
+            --card-bg: #ffffff;
+            --gradient-start: #0a2540;
+            --gradient-end: #1e40af;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .page-container {
+            width: 40%;
+            min-width: 320px;
+            max-width: 600px;
+            background: #FFFFFF;
+            box-shadow: 0 10px 40px rgba(10, 37, 64, 0.1);
+            position: relative;
+        }
+        
+        @media (max-width: 1200px) {
+            .page-container {
+                width: 50%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-container {
+                width: 100%;
+            }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--light-text);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--accent-color);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+        
+        .header-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        
+        .header-subtitle {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+        
+        .section {
+            padding: 3rem 2rem;
+            border-bottom: 1px solid rgba(10, 37, 64, 0.05);
+        }
+        
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 1.8rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-left: 1rem;
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .feature-list {
+            margin: 2rem 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(10, 37, 64, 0.03);
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border-color: rgba(10, 37, 64, 0.08);
+        }
+        
+        .feature-icon {
+            flex-shrink: 0;
+            width: 56px;
+            height: 56px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-text);
+            font-size: 1.5rem;
+            margin-right: 1.2rem;
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.2);
+        }
+        
+        .feature-content h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .feature-content p {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+        
+        .image-container {
+            margin: 1.8rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(10, 37, 64, 0.1);
+            position: relative;
+        }
+        
+        .image-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(10, 37, 64, 0), rgba(10, 37, 64, 0.4));
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .image-container:hover::before {
+            opacity: 1;
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .image-container:hover img {
+            transform: scale(1.03);
+        }
+        
+        .limited-offer {
+            background: var(--accent-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-align: center;
+            margin: 2rem 0;
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .limited-offer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+            z-index: 0;
+        }
+        
+        .limited-offer span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--button-color);
+            color: var(--button-text);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.2);
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(230, 126, 34, 0.3);
+        }
+        
+        .cta-container {
+            text-align: center;
+            margin: 2.5rem 0 1rem;
+        }
+        
+        .disclaimer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 2rem;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .disclaimer-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+            display: inline-block;
+            position: relative;
+        }
+        
+        .disclaimer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .text-paragraph {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        /* 通知アイコン */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .notification-icon {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: var(--button-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .notification-icon:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.4);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 22px;
+            height: 22px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+            animation: blink 1.5s infinite;
+        }
+        
+        .notification-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .notification-icon {
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .notification-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">いちよし証券グループ</div>
+                <h1 class="header-title">株式市場を理解するための専門コース</h1>
+                <p class="header-subtitle">あなたの投資知識を深めるための第一歩</p>
+            </div>
+        </header>
+        
+        <section class="section">
+            <h2 class="section-title">私たちの使命</h2>
+            <p class="text-paragraph">いちよし証券グループは、「日本証券業界で独自の地位を確立する」という崇高な使命を掲げています。</p>
+            <p class="text-paragraph">現代の金融市場では、株式投資への関心が高まっています。皆様が株式知識をより深く理解できるよう、当社の市場学習コースへの参加をお勧めします。</p>
+            
+            <div class="image-container">
+                <img src="img/1.jpg" alt="" onerror="this.src='https://pfst.cf2.poecdn.net/base/image/6bfb14f88419d2d9358e5785d4257ebec354749db91788258a5197b25e35e915?w=1224&h=648'">
+            </div>
+            
+           
+            
+            <div class="cta-container">
+                <button class="cta-button" onclick="openta()">
+                    今すぐ席を確保する
+                </button>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">コース内容</h2>
+            <p class="text-paragraph">投資の世界をより深く理解するための包括的なプログラムを提供します：</p>
+            
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-content">
+                        <h3>株式技術コース</h3>
+                        <p>市場動向と投資戦略をマスターします。すでに300名以上の受講生が学んだ知識を実践で活用しています。</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h3>短期売買テクニック</h3>
+                        <p>短時間で市場機会を捉え、市場変動に柔軟に対応する方法を学びます。</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">📈</div>
+                    <div class="feature-content">
+                        <h3>テクニカル指標分析</h3>
+                        <p>様々なテクニカル指標の使用方法を習得し、賢明な投資判断をサポートします。</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <div class="feature-content">
+                        <h3>リスク管理戦略</h3>
+                        <p>投資リスクを効果的に管理し、資産を保護する方法を学びます。</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-content">
+                        <h3>銘柄選定方法</h3>
+                        <p>科学的な株式選択テクニックを学び、潜在的な投資機会を特定します。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cta-container">
+                <button class="cta-button" onclick="openta()">
+                    今すぐ参加する
+                </button>
+            </div>
+        </section>
+        
+       
+    </div>
+    
+    <!-- 通知アイコン -->
+    <div class="notification-icon" onclick="openta()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"></path>
+        </svg>
+        <div class="notification-badge">1</div>
+    </div>
+    
+    <script>
+        function openta() {
+            window.open('https://line.me/ti/p/~', '_blank');
+        }
+    </script>
+</body>
+</html>
