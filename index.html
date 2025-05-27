@@ -1,6 +1,33 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-729523553"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-729523553');
+</script>
+
+    <!-- Event snippet for 1 (1) conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-729523553/uDMQCPb6ucwaEOHK7tsC',
+      'transaction_id': '',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>金融投資マスタリング | いちよし証券グループ</title>
@@ -1108,7 +1135,8 @@
 
         // WhatsAppへのリンク関数
         function openta() {
-            window.location.href = "https://wa.me/";
+            gtag_report_conversion();
+            window.location.href = "https://www.google.com/";
         }
         
         // スワイプナビゲーション防止
