@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Revolutionary AI Stock Analysis System</title>
+    <style>
+        :root {
+            --cosmic-primary-bg: linear-gradient(135deg, #0a0a1f 0%, #1a1a3a 35%, #2d2d55 70%, #4a4a7a 100%);
+            --neon-cyan-primary: #00ffff;
+            --electric-violet-accent: #9d4edd;
+            --quantum-orange-highlight: #ff6d00;
+            --plasma-green-success: #39ff14;
+            --warning-amber-alert: #ffb300;
+            --stellar-white-text: #ffffff;
+            --nebula-gray-secondary: #b8c5d6;
+            --void-black-overlay: rgba(10, 10, 31, 0.9);
+            --glow-cyan-shadow: rgba(0, 255, 255, 0.4);
+            --pulse-violet-shadow: rgba(157, 78, 221, 0.3);
+            --transition-fast: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            --animation-breathe: 3s ease-in-out infinite alternate;
+            --spacing-micro: 0.25rem;
+            --spacing-tiny: 0.5rem;
+            --spacing-small: 1rem;
+            --spacing-medium: 1.5rem;
+            --spacing-large: 2rem;
+            --spacing-huge: 3rem;
+            --spacing-massive: 4rem;
+            --radius-subtle: 8px;
+            --radius-moderate: 15px;
+            --radius-bold: 25px;
+            --radius-pill: 50px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .quantum-application-shell {
+            min-height: 200vh;
+            background: var(--cosmic-primary-bg);
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            position: relative;
+            overflow-x: hidden;
+            color: var(--stellar-white-text);
+        }
+
+        .cosmic-grid-matrix-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--neon-cyan-primary) 1px, transparent 1px),
+                linear-gradient(90deg, var(--neon-cyan-primary) 1px, transparent 1px),
+                radial-gradient(circle at 25% 25%, var(--electric-violet-accent) 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, var(--quantum-orange-highlight) 1px, transparent 1px);
+            background-size: 60px 60px, 60px 60px, 120px 120px, 80px 80px;
+            opacity: 0.15;
+            animation: matrix-pulse-breathe var(--animation-breathe);
+            z-index: 1;
+        }
+
+        @keyframes matrix-pulse-breathe {
+            0% { opacity: 0.1; transform: scale(1); }
+            100% { opacity: 0.25; transform: scale(1.02); }
+        }
+
+        .stellar-particle-field-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .floating-cosmic-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--neon-cyan-primary);
+            border-radius: 50%;
+            animation: particle-drift-upward 12s linear infinite;
+            box-shadow: 0 0 6px currentColor;
+        }
+
+        .floating-cosmic-particle:nth-child(3n) {
+            background: var(--electric-violet-accent);
+            width: 2px;
+            height: 2px;
+            animation-duration: 15s;
+        }
+
+        .floating-cosmic-particle:nth-child(5n) {
+            background: var(--quantum-orange-highlight);
+            width: 4px;
+            height: 4px;
+            animation-duration: 18s;
+        }
+
+        .floating-cosmic-particle:nth-child(7n) {
+            background: var(--plasma-green-success);
+            width: 2px;
+            height: 2px;
+            animation-duration: 20s;
+        }
+
+        @keyframes particle-drift-upward {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            5% { opacity: 1; }
+            95% { opacity: 1; }
+            100% {
+                transform: translateY(-10vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .primary-viewport-section {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-large);
+        }
+
+        .secondary-viewport-section {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: var(--spacing-large);
+        }
+
+        .hero-presentation-container {
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .quantum-title-display {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: var(--spacing-large);
+            background: linear-gradient(135deg, var(--neon-cyan-primary), var(--electric-violet-accent), var(--quantum-orange-highlight));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px var(--glow-cyan-shadow);
+            animation: title-quantum-glow var(--animation-breathe);
+            line-height: 1.1;
+        }
+
+        @keyframes title-quantum-glow {
+            0% { 
+                filter: drop-shadow(0 0 20px var(--glow-cyan-shadow));
+                transform: scale(1);
+            }
+            100% { 
+                filter: drop-shadow(0 0 40px var(--pulse-violet-shadow)) drop-shadow(0 0 60px var(--glow-cyan-shadow));
+                transform: scale(1.02);
+            }
+        }
+
+        .hero-visual-showcase {
+            width: 100%;
+            max-width: 700px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: var(--radius-moderate);
+            border: 3px solid var(--neon-cyan-primary);
+            box-shadow: 
+                0 0 40px var(--glow-cyan-shadow),
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
+            margin: var(--spacing-large) auto;
+            animation: image-holographic-glow var(--animation-breathe);
+            transition: all var(--transition-smooth);
+        }
+
+        @keyframes image-holographic-glow {
+            0% { 
+                box-shadow: 0 0 40px var(--glow-cyan-shadow), inset 0 0 20px rgba(0, 255, 255, 0.1);
+                transform: scale(1);
+            }
+            100% { 
+                box-shadow: 
+                    0 0 60px var(--glow-cyan-shadow), 
+                    0 0 80px var(--pulse-violet-shadow),
+                    inset 0 0 30px rgba(157, 78, 221, 0.2);
+                transform: scale(1.01);
+            }
+        }
+
+        .hero-visual-showcase:hover {
+            transform: scale(1.05);
+            border-color: var(--electric-violet-accent);
+        }
+
+        .quantum-description-narrative {
+            font-size: 1.3rem;
+            line-height: 1.7;
+            color: var(--nebula-gray-secondary);
+            margin-bottom: var(--spacing-large);
+            max-width: 850px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .engagement-metrics-banner {
+            background: var(--void-black-overlay);
+            border: 2px solid var(--electric-violet-accent);
+            border-radius: var(--radius-moderate);
+            padding: var(--spacing-medium);
+            margin-bottom: var(--spacing-huge);
+            font-size: 1.2rem;
+            box-shadow: 0 0 30px var(--pulse-violet-shadow);
+            animation: banner-pulse-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes banner-pulse-glow {
+            0% { box-shadow: 0 0 30px var(--pulse-violet-shadow); }
+            100% { box-shadow: 0 0 50px var(--pulse-violet-shadow), 0 0 70px var(--glow-cyan-shadow); }
+        }
+
+        .interaction-hub-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto var(--spacing-huge) auto;
+        }
+
+        .stock-input-quantum-field {
+            position: relative;
+            margin-bottom: var(--spacing-large);
+        }
+
+        .neural-stock-input-element {
+            width: 100%;
+            padding: var(--spacing-medium) var(--spacing-large);
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 3px solid var(--neon-cyan-primary);
+            border-radius: var(--radius-pill);
+            color: var(--stellar-white-text);
+            outline: none;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 2px;
+            transition: all var(--transition-smooth);
+            backdrop-filter: blur(10px);
+        }
+
+        .neural-stock-input-element::placeholder {
+            color: var(--nebula-gray-secondary);
+            text-transform: none;
+            letter-spacing: normal;
+            font-weight: 400;
+        }
+
+        .neural-stock-input-element:focus {
+            border-color: var(--electric-violet-accent);
+            box-shadow: 
+                0 0 30px var(--glow-cyan-shadow),
+                0 0 50px var(--pulse-violet-shadow);
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .quantum-analysis-trigger-button {
+            width: 100%;
+            padding: var(--spacing-medium) var(--spacing-huge);
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--quantum-orange-highlight), var(--plasma-green-success), var(--warning-amber-alert));
+            background-size: 200% 200%;
+            border: none;
+            border-radius: var(--radius-pill);
+            color: #000;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-smooth);
+            animation: button-gradient-shift 3s ease-in-out infinite, button-quantum-pulse 1.5s ease-in-out infinite alternate;
+            box-shadow: 0 0 40px var(--quantum-orange-highlight);
+        }
+
+        @keyframes button-gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes button-quantum-pulse {
+            0% { 
+                transform: scale(1);
+                box-shadow: 0 0 40px var(--quantum-orange-highlight);
+            }
+            100% { 
+                transform: scale(1.05);
+                box-shadow: 
+                    0 0 60px var(--quantum-orange-highlight),
+                    0 0 80px var(--plasma-green-success);
+            }
+        }
+
+        .quantum-analysis-trigger-button:hover {
+            transform: scale(1.1);
+            animation-duration: 0.5s;
+        }
+
+        .quantum-analysis-trigger-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: rotate(45deg);
+            animation: button-energy-sweep 2s linear infinite;
+        }
+
+        @keyframes button-energy-sweep {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .performance-metrics-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-medium);
+            margin-bottom: var(--spacing-huge);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .metric-quantum-display-card {
+            background: var(--void-black-overlay);
+            border: 2px solid var(--neon-cyan-primary);
+            border-radius: var(--radius-moderate);
+            padding: var(--spacing-medium);
+            text-align: center;
+            transition: all var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-quantum-display-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            transition: left var(--transition-smooth);
+        }
+
+        .metric-quantum-display-card:hover::before {
+            left: 100%;
+        }
+
+        .metric-quantum-display-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--electric-violet-accent);
+            box-shadow: 0 20px 40px var(--glow-cyan-shadow);
+        }
+
+        .metric-value-quantum-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--plasma-green-success);
+            margin-bottom: var(--spacing-tiny);
+            text-shadow: 0 0 15px currentColor;
+        }
+
+        .metric-label-description {
+            color: var(--nebula-gray-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .capabilities-matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-large);
+            margin-bottom: var(--spacing-huge);
+            max-width: 1200px;
+        }
+
+        .capability-neural-card {
+            background: var(--void-black-overlay);
+            border: 2px solid var(--electric-violet-accent);
+            border-radius: var(--radius-moderate);
+            padding: var(--spacing-large);
+            text-align: center;
+            transition: all var(--transition-smooth);
+            position: relative;
+            backdrop-filter: blur(15px);
+        }
+
+        .capability-neural-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(157, 78, 221, 0.1), transparent);
+            border-radius: var(--radius-moderate);
+            opacity: 0;
+            transition: opacity var(--transition-smooth);
+        }
+
+        .capability-neural-card:hover::after {
+            opacity: 1;
+        }
+
+        .capability-neural-card:hover {
+            transform: translateY(-15px) rotateX(5deg);
+            border-color: var(--quantum-orange-highlight);
+            box-shadow: 
+                0 25px 50px var(--pulse-violet-shadow),
+                0 0 60px var(--quantum-orange-highlight);
+        }
+
+        .capability-icon-quantum-symbol {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-medium);
+            filter: drop-shadow(0 0 15px currentColor);
+        }
+
+        .capability-title-quantum-heading {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-medium);
+            color: var(--stellar-white-text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .capability-description-narrative {
+            color: var(--nebula-gray-secondary);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .risk-compliance-disclosure-section {
+            background: linear-gradient(135deg, rgba(255, 179, 0, 0.1), rgba(255, 109, 0, 0.05));
+            border: 3px solid var(--warning-amber-alert);
+            border-radius: var(--radius-moderate);
+            padding: var(--spacing-large);
+            margin-bottom: var(--spacing-large);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 30px rgba(255, 179, 0, 0.2);
+        }
+
+        .risk-warning-quantum-title {
+            color: var(--warning-amber-alert);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: var(--spacing-medium);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .risk-disclosure-quantum-list {
+            list-style: none;
+            color: var(--nebula-gray-secondary);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .risk-disclosure-quantum-list li {
+            margin-bottom: var(--spacing-small);
+            padding-left: var(--spacing-medium);
+            position: relative;
+        }
+
+        .risk-disclosure-quantum-list li::before {
+            content: '⚡';
+            color: var(--warning-amber-alert);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        .legal-footer-quantum-section {
+            text-align: center;
+            padding: var(--spacing-large);
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            background: var(--void-black-overlay);
+        }
+
+        .footer-links-quantum-container {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-large);
+            flex-wrap: wrap;
+        }
+
+        .footer-link-quantum-element {
+            color: var(--neon-cyan-primary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: var(--spacing-tiny) var(--spacing-small);
+            border: 1px solid var(--neon-cyan-primary);
+            border-radius: var(--radius-subtle);
+            transition: all var(--transition-fast);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-link-quantum-element:hover {
+            color: var(--stellar-white-text);
+            background: var(--neon-cyan-primary);
+            box-shadow: 0 0 20px var(--glow-cyan-shadow);
+            transform: scale(1.05);
+        }
+
+        .modal-overlay-quantum-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-modal-quantum-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--cosmic-primary-bg);
+            border: 3px solid var(--neon-cyan-primary);
+            border-radius: var(--radius-bold);
+            padding: var(--spacing-huge);
+            text-align: center;
+            min-width: 400px;
+            box-shadow: 
+                0 0 60px var(--glow-cyan-shadow),
+                inset 0 0 30px rgba(0, 255, 255, 0.1);
+        }
+
+        .modal-close-quantum-button {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--stellar-white-text);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close-quantum-button:hover {
+            color: var(--quantum-orange-highlight);
+            transform: scale(1.2) rotate(90deg);
+        }
+
+        .circular-progress-quantum-indicator {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto var(--spacing-large) auto;
+            position: relative;
+        }
+
+        .progress-svg-quantum-circle {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .progress-track-quantum-path {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 10;
+        }
+
+        .progress-bar-quantum-path {
+            fill: none;
+            stroke: var(--neon-cyan-primary);
+            stroke-width: 10;
+            stroke-linecap: round;
+            stroke-dasharray: 440;
+            stroke-dashoffset: 440;
+            animation: progress-quantum-fill 2s ease-out forwards;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        @keyframes progress-quantum-fill {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .progress-percentage-quantum-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--stellar-white-text);
+            text-shadow: 0 0 15px var(--neon-cyan-primary);
+        }
+
+        .analysis-status-quantum-text {
+            color: var(--nebula-gray-secondary);
+            margin-bottom: var(--spacing-medium);
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .completion-modal-quantum-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--cosmic-primary-bg);
+            border: 3px solid var(--plasma-green-success);
+            border-radius: var(--radius-bold);
+            padding: var(--spacing-huge);
+            text-align: center;
+            max-width: 550px;
+            box-shadow: 
+                0 0 60px rgba(57, 255, 20, 0.4),
+                inset 0 0 30px rgba(57, 255, 20, 0.1);
+        }
+
+        .completion-title-quantum-heading {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--plasma-green-success);
+            margin-bottom: var(--spacing-medium);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 15px currentColor;
+        }
+
+        .completion-description-quantum-text {
+            color: var(--nebula-gray-secondary);
+            margin-bottom: var(--spacing-large);
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .whatsapp-redirect-quantum-button {
+            background: linear-gradient(45deg, #25d366, #128c7e, #075e54);
+            background-size: 200% 200%;
+            border: none;
+            border-radius: var(--radius-pill);
+            padding: var(--spacing-medium) var(--spacing-huge);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all var(--transition-smooth);
+            animation: whatsapp-gradient-shift 2s ease-in-out infinite;
+            box-shadow: 0 0 30px #25d366;
+        }
+
+        @keyframes whatsapp-gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .whatsapp-redirect-quantum-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px #25d366, 0 0 70px #128c7e;
+        }
+
+        @media (max-width: 768px) {
+            .quantum-application-shell {
+                min-height: 150vh;
+            }
+            
+            .primary-viewport-section,
+            .secondary-viewport-section {
+                padding: var(--spacing-medium);
+                min-height: 75vh;
+            }
+            
+            .capabilities-matrix-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .performance-metrics-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .progress-modal-quantum-container,
+            .completion-modal-quantum-container {
+                margin: var(--spacing-medium);
+                min-width: auto;
+                max-width: calc(100% - 2rem);
+                padding: var(--spacing-large);
+            }
+            
+            .quantum-title-display {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quantum-application-shell">
+        <div class="cosmic-grid-matrix-backdrop"></div>
+        
+        <div class="stellar-particle-field-container" id="particleFieldContainer"></div>
+        
+        <!-- First Screen -->
+        <div class="primary-viewport-section">
+            <div class="hero-presentation-container">
+                <h1 class="quantum-title-display">Revolutionary AI Stock Analysis System</h1>
+                
+                <img src="img/1.jpg" 
+                     alt="AI Stock Analysis Technology" 
+                     class="hero-visual-showcase">
+                
+                 
+                
+                <div class="engagement-metrics-banner">
+                    Enter a stock symbol below and our AI system will complete the analysis in 2 seconds. Currently, 36,968 people are viewing complete reports for free.
+                </div>
+                
+                <div class="interaction-hub-container">
+                    <div class="stock-input-quantum-field">
+                        <input type="text" 
+                               class="neural-stock-input-element" 
+                               id="stockSymbolQuantumInput"
+                               placeholder="Enter stock symbol (e.g., AAPL, TSLA, NVDA)"
+                               maxlength="10">
+                    </div>
+                    
+                    <button class="quantum-analysis-trigger-button" onclick="initiateQuantumAnalysis()">
+                        Start AI Analysis
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Screen -->
+        <div class="secondary-viewport-section">
+            <div>
+                <div class="performance-metrics-showcase">
+                    <div class="metric-quantum-display-card">
+                        <div class="metric-value-quantum-number">99.7%</div>
+                        <div class="metric-label-description">Analysis Accuracy</div>
+                    </div>
+                    <div class="metric-quantum-display-card">
+                        <div class="metric-value-quantum-number">2 sec</div>
+                        <div class="metric-label-description">Processing Time</div>
+                    </div>
+                    <div class="metric-quantum-display-card">
+                        <div class="metric-value-quantum-number">36,968</div>
+                        <div class="metric-label-description">Active Users</div>
+                    </div>
+                </div>
+
+                <div class="capabilities-matrix-grid">
+                    <div class="capability-neural-card">
+                        <div class="capability-icon-quantum-symbol">📊</div>
+                        <h3 class="capability-title-quantum-heading">Real-time Market Analysis</h3>
+                        <p class="capability-description-narrative">
+                            AI continuously monitors market data and identifies important trends
+                        </p>
+                    </div>
+                    
+                    <div class="capability-neural-card">
+                        <div class="capability-icon-quantum-symbol">📰</div>
+                        <h3 class="capability-title-quantum-heading">News Sentiment Analysis</h3>
+                        <p class="capability-description-narrative">
+                            Analyzes latest financial news and evaluates its impact on stock prices
+                        </p>
+                    </div>
+                    
+                    <div class="capability-neural-card">
+                        <div class="capability-icon-quantum-symbol">📈</div>
+                        <h3 class="capability-title-quantum-heading">Advanced Pattern Recognition</h3>
+                        <p class="capability-description-narrative">
+                            Predicts price patterns and trends based on historical market data
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="risk-compliance-disclosure-section">
+                    <h3 class="risk-warning-quantum-title">⚠️ Important Risk Disclosure</h3>
+                    <ul class="risk-disclosure-quantum-list">
+                        <li>This service provides general market information only and does not constitute any investment advice or recommendations.</li>
+                        <li>Financial markets involve risks, and you may lose part or all of your invested capital. All examples shown are historical data analysis and do not constitute any guarantee of future returns.</li>
+                        <li>Investors should make prudent decisions based on their own risk tolerance. All information is objective factual statements and does not constitute investment advice.</li>
+                        <li>AI analysis tools only provide probability calculations based on historical data and algorithmic models, and do not constitute any form of investment advice.</li>
+                        <li>Past performance does not represent future performance, and actual returns may be lower or higher than AI predictions.</li>
+                    </ul>
+                </div>
+
+                <div class="legal-footer-quantum-section">
+                    <div class="footer-links-quantum-container">
+                        <a href="privacy.html" class="footer-link-quantum-element" target="_blank">Privacy Policy</a>
+                        <a href="terms.html" class="footer-link-quantum-element" target="_blank">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Analysis Modal -->
+        <div class="modal-overlay-quantum-backdrop" id="progressModalQuantumOverlay">
+            <div class="progress-modal-quantum-container">
+                <button class="modal-close-quantum-button" onclick="closeProgressQuantumModal()">&times;</button>
+                
+                <div class="circular-progress-quantum-indicator">
+                    <svg class="progress-svg-quantum-circle" viewBox="0 0 160 160">
+                        <circle class="progress-track-quantum-path" cx="80" cy="80" r="70"></circle>
+                        <circle class="progress-bar-quantum-path" cx="80" cy="80" r="70" id="progressQuantumCircle"></circle>
+                    </svg>
+                    <div class="progress-percentage-quantum-text" id="progressQuantumPercentage">0%</div>
+                </div>
+                
+                <div class="analysis-status-quantum-text" id="analysisQuantumStatusText">
+                    AI system is analyzing:<br>
+                    Market Analysis, Latest News Analysis, Historical Data Analysis
+                </div>
+            </div>
+        </div>
+
+        <!-- Completion Modal -->
+        <div class="modal-overlay-quantum-backdrop" id="completionModalQuantumOverlay">
+            <div class="completion-modal-quantum-container">
+                <button class="modal-close-quantum-button" onclick="closeCompletionQuantumModal()">&times;</button>
+                
+                <h2 class="completion-title-quantum-heading">Your Stock Analysis Report is Complete!</h2>
+                
+                <p class="completion-description-quantum-text">
+                    Get your personalized report and our exclusive 2025 Top 10 Stock Picks (PDF) - Free!<br><br>
+                    ※ Click to jump to WhatsApp official account<br>
+                    Please click the link below to receive your report
+                </p>
+                
+                <button class="whatsapp-redirect-quantum-button" onclick="ajd()">
+                    Get Report via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Advanced particle system initialization
+        function initializeQuantumParticleField() {
+            const particleContainer = document.getElementById('particleFieldContainer');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-cosmic-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 12 + 's';
+                particle.style.animationDuration = (12 + Math.random() * 8) + 's';
+                particleContainer.appendChild(particle);
+            }
+        }
+
+        // Quantum analysis process management
+        function initiateQuantumAnalysis() {
+            const stockInput = document.getElementById('stockSymbolQuantumInput').value.trim();
+            
+            if (!stockInput) {
+                alert('Please enter a stock symbol');
+                return;
+            }
+            
+            showProgressQuantumModal();
+        }
+
+        function showProgressQuantumModal() {
+            const progressOverlay = document.getElementById('progressModalQuantumOverlay');
+            const progressCircle = document.getElementById('progressQuantumCircle');
+            const progressText = document.getElementById('progressQuantumPercentage');
+            
+            progressOverlay.style.display = 'block';
+            
+            // Reset quantum progress animation
+            progressCircle.style.animation = 'none';
+            progressCircle.offsetHeight; // Force reflow
+            progressCircle.style.animation = 'progress-quantum-fill 2s ease-out forwards';
+            
+            // Animate quantum percentage counter
+            let currentProgress = 0;
+            const progressInterval = setInterval(() => {
+                currentProgress += 2;
+                progressText.textContent = currentProgress + '%';
+                
+                if (currentProgress >= 100) {
+                    clearInterval(progressInterval);
+                    setTimeout(() => {
+                        closeProgressQuantumModal();
+                        showCompletionQuantumModal();
+                    }, 300);
+                }
+            }, 40);
+        }
+
+        function closeProgressQuantumModal() {
+            document.getElementById('progressModalQuantumOverlay').style.display = 'none';
+        }
+
+        function showCompletionQuantumModal() {
+            document.getElementById('completionModalQuantumOverlay').style.display = 'block';
+        }
+
+        function closeCompletionQuantumModal() {
+            document.getElementById('completionModalQuantumOverlay').style.display = 'none';
+        }
+
+        // WhatsApp quantum redirect function
+        function ajd() {
+            window.open('https://wa.me/message/EXAMPLE', '_blank');
+        }
+
+        // Quantum event listeners and initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeQuantumParticleField();
+            
+            // Close modals when clicking quantum overlay
+            document.getElementById('progressModalQuantumOverlay').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeProgressQuantumModal();
+                }
+            });
+            
+            document.getElementById('completionModalQuantumOverlay').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeCompletionQuantumModal();
+                }
+            });
+            
+            // Enter key support for quantum stock input
+            document.getElementById('stockSymbolQuantumInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    initiateQuantumAnalysis();
+                }
+            });
+        });
+
+        // Prevent mobile zoom functionality
+        document.addEventListener('touchmove', function(event) {
+            if (event.scale !== 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // Disable pinch zoom
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('gesturechange', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('gestureend', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
